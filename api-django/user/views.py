@@ -1,9 +1,10 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-from rest_framework import status
+from rest_framework import serializers, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
+
 from user.serializers import UserLogInSerializer, UserSignUpSerializer
 from user.utils import refresh_access_token, require_token
 
@@ -57,6 +58,8 @@ class UserLogInView(APIView):
                     samesite="Lax",
                 )
                 return response
+            except serializers.ValidationError as e:
+                return Response(e.detail, status=status.HTTP_400_BAD_REQUEST)
             except Exception:
                 return HttpResponse(status=500)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

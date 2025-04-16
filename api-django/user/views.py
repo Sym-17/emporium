@@ -35,7 +35,7 @@ class UserLogInView(APIView):
                 user = serializer.validate_user(data=request.data)
 
                 refresh_token = RefreshToken.for_user(user)
-                access_token = refresh_access_token(refresh_token)
+                access_token = refresh_access_token(str(refresh_token))
 
                 response = Response(
                     {
@@ -60,7 +60,8 @@ class UserLogInView(APIView):
                 return response
             except serializers.ValidationError as e:
                 return Response(e.detail, status=status.HTTP_400_BAD_REQUEST)
-            except Exception:
+            except Exception as err:
+                print("Error while login: ", err)
                 return HttpResponse(status=500)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

@@ -18,7 +18,7 @@ def decode_jwt_token(token):
         raise jwt.InvalidTokenError
 
 
-def refresh_access_token(refresh_token):
+def refresh_access_token(refresh_token: str) -> str:
     """
     Refreshes an access token using the provided refresh token.
     """

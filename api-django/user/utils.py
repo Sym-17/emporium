@@ -11,7 +11,11 @@ def decode_jwt_token(token):
     Decodes a JWT token and returns the payload.
     """
     try:
-        return jwt.decode(token, config.user_authentication.signing_key)
+        return jwt.decode(
+            token,
+            config.user_authentication.signing_key,
+            algorithms=[config.user_authentication.algorithm],
+        )
     except jwt.ExpiredSignatureError:
         raise jwt.ExpiredSignatureError
     except jwt.InvalidTokenError:

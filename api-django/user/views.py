@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.utils.decorators import method_decorator
 from rest_framework import serializers, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -11,7 +11,7 @@ from user.utils import refresh_access_token, require_token
 
 class HelloWorldView(APIView):
 
-    @require_token
+    @method_decorator(require_token)
     def get(self, request):
         return Response({"message": "Hello World!"}, status=200)
 

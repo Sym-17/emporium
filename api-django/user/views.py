@@ -1,10 +1,12 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.utils.decorators import method_decorator
 from rest_framework import serializers, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework_simplejwt.exceptions import TokenError
 from rest_framework_simplejwt.tokens import RefreshToken
 
+from core import config
 from user.serializers import UserLogInSerializer, UserSignUpSerializer
 from user.utils import refresh_access_token, require_token
 
@@ -47,14 +49,14 @@ class UserLogInView(APIView):
                     "access_token",
                     access_token,
                     httponly=True,
-                    secure=True,
+                    secure=not config.server.debug,
                     samesite="Lax",
                 )
                 response.set_cookie(
                     "refresh_token",
                     str(refresh_token),
                     httponly=True,
-                    secure=True,
+                    secure=not config.server.debug,
                     samesite="Lax",
                 )
                 return response

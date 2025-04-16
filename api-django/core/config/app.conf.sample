@@ -2,6 +2,7 @@
 debug = false
 env = "development"
 secret_key = "XXX"
+allowed_hosts = ["*"]
 
 [database]
 host = "xxx"

@@ -29,6 +29,7 @@ class ServerConfig(BaseModel):
     debug: bool
     env: str
     secret_key: str
+    allowed_hosts: list[str]
 
 
 class Config(BaseModel):

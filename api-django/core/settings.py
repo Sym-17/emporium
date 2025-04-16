@@ -141,7 +141,7 @@ SIMPLE_JWT = {
     "REFRESH_TOKEN_LIFETIME": timedelta(
         hours=config.user_authentication.refresh_token_lifetime_in_hours
     ),
-    "ALGORITHM": "HS256",
+    "ALGORITHM": config.user_authentication.algorithm,
     "SIGNING_KEY": config.user_authentication.signing_key,
 }
 

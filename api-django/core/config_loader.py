@@ -15,6 +15,7 @@ class UserAuthentication(BaseModel):
     signing_key: str
     access_token_lifetime_in_seconds: float
     refresh_token_lifetime_in_hours: float
+    algorithm: str
 
 
 class DatabaseConfig(BaseModel):

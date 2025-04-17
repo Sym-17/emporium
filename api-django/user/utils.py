@@ -46,7 +46,7 @@ def require_token(view_func):
 
         except jwt.ExpiredSignatureError:
             refresh_token = request.COOKIES.get("refresh_token")
-            
+
             if not refresh_token:
                 return JsonResponse({"error": "Log In required!"}, status=401)
 
@@ -63,7 +63,8 @@ def require_token(view_func):
 
                 payload = decode_jwt_token(new_access_token)
                 request.user_id = payload.get("user_id")
-                return response
+                print("Access token refreshed successfully!")
+                # return response
 
             except TokenError:
                 return JsonResponse(
